@@ -19,8 +19,8 @@ Le test est structuré en plusieurs parties, chacune simulant une tâche réelle
 1.  **Logique et Connaissances Métier :** Évaluation de la pensée analytique fondamentale et de la compréhension du paysage de l'analyse de données.
 2.  **Étude de Cas 1 (Remboursement de Crédit) :** Un exercice de haut niveau sur les processus, les KPI et les solutions digitales pour un problème métier.
 3.  **Étude de Cas 2 (Workflow n8n) :** Un projet pratique d'automatisation pour concevoir un système de gestion de leads utilisant n8n et l'IA, démontrant la capacité à construire des pipelines efficaces et low-code.
-4.  **Étude de Cas 3 (Analyse des Transactions) :** Une analyse exploratoire de données (AED) approfondie de 2 000 transactions bancaires anonymisées pour comprendre le comportement des clients, l'utilisation des canaux et identifier les tendances clés. (Fichiers : `bank_transactions_cameroon_...csv`)
-5.  **Étude de Cas 4 (Analyse du Risque de Crédit) :** Une analyse complète de 500 clients pour établir le profil de santé financière, évaluer les facteurs de risque de crédit et identifier les segments de clients les plus précieux et les plus risqués. (Fichier : `bank_clients_cameroon_risk_...csv`)
+4.  **Étude de Cas 3 (Analyse des Transactions) :** Une analyse exploratoire de données (AED) approfondie de 2 000 transactions bancaires anonymisées pour comprendre le comportement des clients, l'utilisation des canaux et identifier les tendances clés. (Fichiers : `bank_transactions_cameroon_-_PARTIE_5_Cas_pratique_3.csv`)
+5.  **Étude de Cas 4 (Analyse du Risque de Crédit) :** Une analyse complète de 500 clients pour établir le profil de santé financière, évaluer les facteurs de risque de crédit et identifier les segments de clients les plus précieux et les plus risqués. (Fichier : `bank_clients_cameroon_risk_-_PARTIE_6_Cas_pratique_4.csv`)
 
 L'objectif principal n'est pas seulement de fournir des réponses, mais de **montrer le travail** : le processus logique, le code, les interprétations et les recommandations finales.
 
