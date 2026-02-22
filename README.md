@@ -55,6 +55,7 @@ financial-house-data-analyst-test/
 - **Langage Principal :** Python 3.12.3
 - **Manipulation de Données :** Pandas, NumPy
 - **Visualisation de Données :** Matplotlib, Seaborn
+- **Prétraitement :** Scikit-learn
 - **Environnement :** Jupyter Notebook
 - **Automatisation :** n8n (outil de workflow low-code)
 - **Contrôle de Version :** Git & GitHub
@@ -82,7 +83,7 @@ Les analyses Python sont contenues dans des notebooks Jupyter (`.ipynb`).
 3.  **Installer les dépendances :**
 
     ```bash
-    pip3 install pandas numpy matplotlib seaborn jupyter
+    pip3 install pandas numpy matplotlib seaborn scikit-learn jupyter
     ```
 
 4.  **Lancer Jupyter et ouvrir un notebook :**
