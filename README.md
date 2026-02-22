@@ -52,7 +52,7 @@ financial-house-data-analyst-test/
 
 ## Technologies Utilisées
 
-- **Langage Principal :** Python 3.9
+- **Langage Principal :** Python 3.12.3
 - **Manipulation de Données :** Pandas, NumPy
 - **Visualisation de Données :** Matplotlib, Seaborn
 - **Environnement :** Jupyter Notebook
@@ -68,7 +68,7 @@ Les analyses Python sont contenues dans des notebooks Jupyter (`.ipynb`).
 1.  **Cloner le dépôt :**
 
     ```bash
-    git clone https://github.com/darlinkua/financial-house-data-analyst-test.git
+    git clone https://github.com/kd237/financial-house-data-analyst-test.git
     cd financial-house-data-analyst-test
     ```
 
