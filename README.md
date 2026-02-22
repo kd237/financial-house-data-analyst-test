@@ -1,137 +1,137 @@
-# Financial House - Data Analyst Technical Test
+# Financial House - Test Technique Data Analyst
 
 ![Python](https://img.shields.io/badge/Python-3.9%2B-blue)
 ![Pandas](https://img.shields.io/badge/Pandas-1.5.3-brightgreen)
 ![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
 ![n8n](https://img.shields.io/badge/n8n-workflow-purple)
 
-This repository contains the complete deliverables for the Data Analyst technical test at **Financial House S.A**. The goal of this test is to demonstrate analytical rigor, data manipulation skills, and the ability to generate actionable business insights.
+Ce dépôt contient l'ensemble des livrables pour le test technique de Data Analyst chez **Financial House S.A**. L'objectif de ce test est de démontrer une rigueur analytique, des compétences en manipulation de données et la capacité à générer des insights business exploitables.
 
-**Author:** Darlin Kuajo
-**Date:** February 22-23, 2026
-
----
-
-## Business Understanding
-
-The test is structured in multiple parts, each simulating a real-world task a Data Analyst at Financial House might encounter:
-
-1.  **Logic & Business Knowledge:** Assessing fundamental analytical thinking and understanding of the data analytics landscape.
-2.  **Case Study 1 (Credit Repayment):** A high-level exercise on process, KPIs, and digital solutions for a business problem.
-3.  **Case Study 2 (n8n Workflow):** A hands-on automation project to design a lead management system using n8n and AI, showcasing the ability to build efficient, low-code pipelines.
-4.  **Case Study 3 (Transaction Analysis):** An in-depth exploratory data analysis (EDA) of 2,000 anonymized bank transactions to understand customer behavior, channel usage, and identify key patterns. (Files: `bank_transactions_cameroon_...csv`)
-5.  **Case Study 4 (Credit Risk Analysis):** A comprehensive analysis of 500 clients to profile financial health, assess credit risk factors, and identify the most valuable and risky customer segments. (File: `bank_clients_cameroon_risk_...csv`)
-
-The primary objective is not just to provide answers, but to **show the work**: the logical process, the code, the interpretations, and the final recommendations.
+**Auteur :** Darlin Kuajo
+**Date :** 22-23 Février 2026
 
 ---
 
-## Repository Structure
+## Compréhension du besoin
 
-The repository is organized for clarity and ease of review.
+Le test est structuré en plusieurs parties, chacune simulant une tâche réelle qu'un Data Analyst pourrait rencontrer chez Financial House :
+
+1.  **Logique et Connaissances Métier :** Évaluation de la pensée analytique fondamentale et de la compréhension du paysage de l'analyse de données.
+2.  **Étude de Cas 1 (Remboursement de Crédit) :** Un exercice de haut niveau sur les processus, les KPI et les solutions digitales pour un problème métier.
+3.  **Étude de Cas 2 (Workflow n8n) :** Un projet pratique d'automatisation pour concevoir un système de gestion de leads utilisant n8n et l'IA, démontrant la capacité à construire des pipelines efficaces et low-code.
+4.  **Étude de Cas 3 (Analyse des Transactions) :** Une analyse exploratoire de données (AED) approfondie de 2 000 transactions bancaires anonymisées pour comprendre le comportement des clients, l'utilisation des canaux et identifier les tendances clés. (Fichiers : `bank_transactions_cameroon_...csv`)
+5.  **Étude de Cas 4 (Analyse du Risque de Crédit) :** Une analyse complète de 500 clients pour établir le profil de santé financière, évaluer les facteurs de risque de crédit et identifier les segments de clients les plus précieux et les plus risqués. (Fichier : `bank_clients_cameroon_risk_...csv`)
+
+L'objectif principal n'est pas seulement de fournir des réponses, mais de **montrer le travail** : le processus logique, le code, les interprétations et les recommandations finales.
+
+---
+
+## Structure du Dépôt
+
+Le dépôt est organisé pour plus de clarté et de facilité de révision.
 
 financial-house-data-analyst-test/
 │
-├── README.md # This file: Project overview and structure
+├── README.md # Ce fichier : Aperçu du projet et structure
 │
-├── partie_4_n8n_workflow/ # Case Study 2: Lead Management Automation
-│ ├── documentation.md # Conceptual design, technical choices, setup guide
-│ └── lead_manager_workflow.json # The n8n workflow export file
+├── partie_4_n8n_workflow/ # Étude de Cas 2 : Automatisation de la gestion des leads
+│ ├── documentation.md # Conception conceptuelle, choix techniques, guide d'installation
+│ └── lead_manager_workflow.json # Le fichier d'export du workflow n8n
 │
-├── partie_5_transactions/ # Case Study 3: Transaction Analysis
-│ └── analyse_transactions.ipynb # Jupyter Notebook with full Python analysis
+├── partie_5_transactions/ # Étude de Cas 3 : Analyse des transactions
+│ └── analyse_transactions.ipynb # Notebook Jupyter avec l'analyse Python complète
 │
-├── partie_6_credit_risk/ # Case Study 4: Credit Risk Analysis
-│ └── analyse_credit_risk.ipynb # Jupyter Notebook with full Python analysis
+├── partie_6_credit_risk/ # Étude de Cas 4 : Analyse du risque de crédit
+│ └── analyse_credit_risk.ipynb # Notebook Jupyter avec l'analyse Python complète
 │
-└── rapport_final_darlin_kuajo.pdf # The final summary report for submission
+└── rapport_final_darlin_kuajo.pdf # Le rapport de synthèse final à soumettre
 
 ---
 
-## Technologies Used
+## Technologies Utilisées
 
-- **Core Language:** Python 3.9
-- **Data Manipulation:** Pandas, NumPy
-- **Data Visualization:** Matplotlib, Seaborn
-- **Environment:** Jupyter Notebook
-- **Automation:** n8n (low-code workflow tool)
-- **Version Control:** Git & GitHub
+- **Langage Principal :** Python 3.9
+- **Manipulation de Données :** Pandas, NumPy
+- **Visualisation de Données :** Matplotlib, Seaborn
+- **Environnement :** Jupyter Notebook
+- **Automatisation :** n8n (outil de workflow low-code)
+- **Contrôle de Version :** Git & GitHub
 
 ---
 
-## How to Run the Analyses
+## Comment Exécuter les Analyses
 
-The Python analyses are contained in Jupyter Notebooks (`.ipynb`).
+Les analyses Python sont contenues dans des notebooks Jupyter (`.ipynb`).
 
-1.  **Clone the repository:**
+1.  **Cloner le dépôt :**
 
     ```bash
     git clone https://github.com/darlinkua/financial-house-data-analyst-test.git
     cd financial-house-data-analyst-test
     ```
 
-2.  **Set up a Python environment (recommended):**
+2.  **Configurer un environnement Python (recommandé) :**
 
     ```bash
     python -m venv venv
-    source venv/bin/activate  # On Windows: venv\Scripts\activate
+    source venv/bin/activate  # Sur Windows : venv\Scripts\activate
     ```
 
-3.  **Install dependencies:**
+3.  **Installer les dépendances :**
 
     ```bash
     pip install pandas numpy matplotlib seaborn jupyter
     ```
 
-4.  **Launch Jupyter and open a notebook:**
+4.  **Lancer Jupyter et ouvrir un notebook :**
     ```bash
     jupyter notebook
     ```
-    Navigate to `partie_5_transactions/` or `partie_6_credit_risk/` and open the `.ipynb` file.
+    Naviguez vers `partie_5_transactions/` ou `partie_6_credit_risk/` et ouvrez le fichier `.ipynb`.
 
-All code is thoroughly commented to explain the logic behind each step.
-
----
-
-## Approach & Methodology
-
-The analyses in this project follow a structured, iterative process inspired by industry best practices (like CRISP-DM), as outlined in the provided reference document:
-
-1.  **Ask the Question:** Each section of the notebooks starts by restating the business question to be answered.
-2.  **Data Collection:** Loading the CSV data.
-3.  **Data Preparation (Cleaning):**
-    - Checking for missing values and duplicates.
-    - Verifying and correcting data types (e.g., dates, numerical values).
-    - Handling outliers where appropriate.
-4.  **Exploratory Analysis:**
-    - Generating descriptive statistics.
-    - Creating calculated fields (e.g., client activity metrics, composite scores).
-5.  **Interpretation & Visualization:**
-    - Building clear, informative charts to illustrate findings.
-    - Providing written insights and linking them back to the initial business questions.
-6.  **Recommendations:**
-    - Synthesizing the analysis into actionable business recommendations.
+Tout le code est abondamment commenté pour expliquer la logique derrière chaque étape.
 
 ---
 
-## Key Findings & Recommendations (Preview)
+## Approche et Méthodologie
 
-- **Transaction Analysis (Part 5):** Digital channels (Mobile & Online) dominate in volume, but ATMs are still crucial for high-value withdrawals in certain cities. Customer activity is multi-faceted; we identified distinct segments of "active" users based on frequency and volume.
-- **Credit Risk Analysis (Part 6):** A clear correlation exists between a low credit score, a high number of loans, and default. We identified specific age groups and cities with higher risk profiles, as well as a segment of "high-potential" clients combining high income, high balance, and excellent credit scores.
-- **n8n Workflow (Part 4):** A fully functional lead management system was designed, demonstrating the power of low-code automation to instantly qualify leads, provide AI-generated responses, and notify sales teams.
+Les analyses de ce projet suivent un processus structuré et itératif inspiré des meilleures pratiques de l'industrie (comme CRISP-DM), tel que décrit dans le document de référence fourni :
+
+1.  **Poser la Question :** Chaque section des notebooks commence par reformuler la question métier à laquelle il faut répondre.
+2.  **Collecte des Données :** Chargement des données CSV.
+3.  **Préparation des Données (Nettoyage) :**
+    - Vérification des valeurs manquantes et des doublons.
+    - Vérification et correction des types de données (ex : dates, valeurs numériques).
+    - Traitement des valeurs aberrantes le cas échéant.
+4.  **Analyse Exploratoire :**
+    - Génération de statistiques descriptives.
+    - Création de champs calculés (ex : métriques d'activité client, scores composites).
+5.  **Interprétation et Visualisation :**
+    - Construction de graphiques clairs et informatifs pour illustrer les résultats.
+    - Fourniture d'insights écrits et mise en lien avec les questions métier initiales.
+6.  **Recommandations :**
+    - Synthèse de l'analyse en recommandations business actionnables.
 
 ---
 
-## Status
+## Principaux Résultats et Recommandations (Aperçu)
 
-**Completed / Published** (as of February 23, 2026)
-
-This repository represents the final deliverable for the technical test. The project is considered complete for this purpose.
+- **Analyse des Transactions (Partie 5) :** Les canaux digitaux (Mobile & Online) dominent en volume, mais les distributeurs automatiques (ATM) restent cruciaux pour les retraits de montants élevés dans certaines villes. L'activité des clients est multidimensionnelle ; nous avons identifié des segments distincts d'utilisateurs "actifs" basés sur la fréquence et le volume.
+- **Analyse du Risque de Crédit (Partie 6) :** Une corrélation claire existe entre un faible score de crédit, un nombre élevé de prêts et le défaut de paiement. Nous avons identifié des groupes d'âge et des villes spécifiques avec des profils de risque plus élevés, ainsi qu'un segment de clients à "haut potentiel" combinant revenu élevé, solde élevé et excellents scores de crédit.
+- **Workflow n8n (Partie 4) :** Un système fonctionnel de gestion des leads a été conçu, démontrant la puissance de l'automatisation low-code pour qualifier instantanément les leads, générer des réponses personnalisées par IA et notifier les équipes commerciales.
 
 ---
 
-## Credits
+## Statut
 
-- **Candidate:** Darlin Kuajo
-- **Evaluators:** Rodrigue Awomo, Arielle Wandji (Financial House S.A)
-- **Data Source:** Provided by Financial House S.A for the purpose of this test.
+**Terminé / Publié** (au 23 Février 2026)
+
+Ce dépôt représente le livrable final pour le test technique. Le projet est considéré comme terminé dans ce cadre.
+
+---
+
+## Crédits
+
+- **Candidat :** Darlin Kuajo
+- **Évaluateurs :** Rodrigue Awomo, Arielle Wandji (Financial House S.A)
+- **Source des Données :** Fournies par Financial House S.A pour les besoins de ce test.
