@@ -75,7 +75,7 @@ Les analyses Python sont contenues dans des notebooks Jupyter (`.ipynb`).
 2.  **Configurer un environnement Python (recommandé) :**
 
     ```bash
-    python -m venv venv
+    python3 -m venv venv
     source venv/bin/activate  # Sur Windows : venv\Scripts\activate
     ```
 
