@@ -82,7 +82,7 @@ Les analyses Python sont contenues dans des notebooks Jupyter (`.ipynb`).
 3.  **Installer les dépendances :**
 
     ```bash
-    pip install pandas numpy matplotlib seaborn jupyter
+    pip3 install pandas numpy matplotlib seaborn jupyter
     ```
 
 4.  **Lancer Jupyter et ouvrir un notebook :**
@@ -97,7 +97,7 @@ Tout le code est abondamment commenté pour expliquer la logique derrière chaqu
 
 ## Approche et Méthodologie
 
-Les analyses de ce projet suivent un processus structuré et itératif inspiré des meilleures pratiques de l'industrie (comme CRISP-DM), tel que décrit dans le document de référence fourni :
+Les analyses de ce projet suivent un processus structuré et itératif inspiré des meilleures pratiques de l'industrie (comme CRISP-DM):
 
 1.  **Poser la Question :** Chaque section des notebooks commence par reformuler la question métier à laquelle il faut répondre.
 2.  **Collecte des Données :** Chargement des données CSV.
