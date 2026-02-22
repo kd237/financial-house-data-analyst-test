@@ -30,6 +30,7 @@ L'objectif principal n'est pas seulement de fournir des réponses, mais de **mon
 
 Le dépôt est organisé pour plus de clarté et de facilité de révision.
 
+```
 financial-house-data-analyst-test/
 │
 ├── README.md # Ce fichier : Aperçu du projet et structure
@@ -45,6 +46,7 @@ financial-house-data-analyst-test/
 │ └── analyse_credit_risk.ipynb # Notebook Jupyter avec l'analyse Python complète
 │
 └── rapport_final_darlin_kuajo.pdf # Le rapport de synthèse final à soumettre
+```
 
 ---
 
