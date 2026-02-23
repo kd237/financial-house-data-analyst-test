@@ -26,7 +26,7 @@
 
 ## 📦 Fichier du workflow
 
-**Nom du fichier :** `Gestion Leads Google Forms.json`
+**Nom du fichier :** `lead_manager_workflow.json`
 
 **Comment l'utiliser :**
 
