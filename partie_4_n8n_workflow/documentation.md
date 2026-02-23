@@ -28,6 +28,8 @@
 
 **Nom du fichier :** `lead_manager_workflow.json`
 
+![Worflow n8n](./n8n.png"Aperçu du webflow n8n")
+
 **Comment l'utiliser :**
 
 1. Dans n8n, cliquez sur **"Import from File"**
