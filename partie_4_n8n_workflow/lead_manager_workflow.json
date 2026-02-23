@@ -1,0 +1,369 @@
+{
+  "name": "Gestion Leads Google Forms",
+  "nodes": [
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1h9bhyjxsls3a-1B34p8l8YdEOMShAymrvz6pxzuaW0I",
+          "mode": "list",
+          "cachedResultName": "Lead Management System Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h9bhyjxsls3a-1B34p8l8YdEOMShAymrvz6pxzuaW0I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1264223649,
+          "mode": "list",
+          "cachedResultName": "Réponses au formulaire 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h9bhyjxsls3a-1B34p8l8YdEOMShAymrvz6pxzuaW0I/edit#gid=1264223649"
+        },
+        "event": "rowAdded",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [-160, -240],
+      "id": "f6a690bc-d779-41f3-8d1e-508fbf28a57e",
+      "name": "Détection nouveau lead",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "5xKtFDqnbaX1cHJb",
+          "name": "Google Sheets Trigger account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Récupérer les données du Google Sheets (qui viennent du formulaire)\nlet nom = $json[\"Nom complet\"] || \"\";\nlet email = $json[\"Adresse email\"] || \"\";\nlet entreprise = $json[\"Entreprise\"] || \"\";\nlet budgetBrut = $json[\"Budget estimé (en FCFA)\"] || \"0\";\nlet description = $json[\"Description du besoin\"] || \"\";\n\n// Nettoyer le budget (enlever les espaces et convertir en nombre)\nlet budget = 0;\nif (budgetBrut && budgetBrut.toString().trim() !== '') {\n    // Supprimer tous les espaces et convertir\n    budget = parseFloat(budgetBrut.toString().replace(/\\s/g, '')) || 0;\n}\n\n// Classification par seuils\nlet priorite = \"Basse\";\nlet couleur = \"🟢\";\n\nif (budget > 5000000) {\n    priorite = \"Haute\";\n    couleur = \"🔴\";\n} else if (budget > 1000000) {\n    priorite = \"Moyenne\";\n    couleur = \"🟠\";\n}\n\n// Message personnalisé selon la priorité\nlet messageReponse = \"\";\nswitch(priorite) {\n    case \"Haute\":\n        messageReponse = \"Votre projet à fort potentiel a été transmis à notre équipe dirigeante.\";\n        break;\n    case \"Moyenne\":\n        messageReponse = \"Votre demande a été transmise à notre équipe commerciale.\";\n        break;\n    default:\n        messageReponse = \"Nous vous remercions pour votre intérêt. Des informations vous seront envoyées prochainement.\";\n}\n\n// Préparer la date de traitement\nlet maintenant = new Date();\nlet dateTraitement = maintenant.toLocaleString('fr-FR');\n\n// Retourner les données enrichies\nreturn {\n    // On garde toutes les données originales (important !)\n    ...$json,\n    \n    // On ajoute nos champs calculés\n    priorite: priorite,\n    couleur_priorite: couleur,\n    budget_nettoye: budget,\n    budget_formate: budget.toLocaleString('fr-FR') + ' FCFA',\n    message_personnalise: messageReponse,\n    date_traitement: dateTraitement,\n    traitement_ok: true\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [80, -240],
+      "id": "c8854a3e-9384-49c0-a9ad-b64aa098bada",
+      "name": "Classification budget"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer OPenAI_API_KEY"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"gpt-4o\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"Tu es un assistant utile.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"{{ $json['Description de votre besoin'] }}\"\n    }\n  ],\n  \"temperature\": 0.7\n} ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [336, -240],
+      "id": "29657337-d243-4e9e-9245-bf660f03f361",
+      "name": "Analyse IA (OpenAI)"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Nœud Code - Extraire les mots-clés de la réponse OpenAI\n\n// La réponse complète d'OpenAI est dans $json\n// Le contenu généré est dans $json.choices[0].message.content\n\nlet aiResponse = \"\";\n\nif ($json.choices && $json.choices.length > 0) {\n    aiResponse = $json.choices[0].message.content || \"\";\n}\n\n// Nettoyer la réponse (enlever les espaces superflus)\nlet keywords = aiResponse.trim();\n\n// Si pas de réponse, mettre un message par défaut\nif (!keywords) {\n    keywords = \"Aucun mot-clé identifié\";\n}\n\n// Retourner les données enrichies\nreturn {\n    // On garde toutes les données existantes\n    ...$json,\n    \n    // On ajoute les mots-clés extraits\n    ai_keywords: keywords,\n    \n    // Optionnel : garder la réponse brute pour debug\n    ai_raw_response: aiResponse,\n    \n    // Date d'analyse\n    ai_analysis_date: new Date().toISOString()\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [544, -240],
+      "id": "4543b0d1-ed39-4de1-84d4-cdbfa4e117cf",
+      "name": "Extraction mots-clés"
+    },
+    {
+      "parameters": {
+        "sendTo": "=\t{{ $json[\"Adresse email\"] }}",
+        "subject": "=Merci pour votre intérêt, {{ $json[\"Nom complet\"] }}!",
+        "emailType": "text",
+        "message": "=Votre projet sera étudiez",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [960, -256],
+      "id": "9bec4e9b-a3b9-48f6-916c-0522077c40d0",
+      "name": "Email prospect",
+      "webhookId": "1a02fc9a-011c-4e2c-b2a0-d62371f1e295",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YDVMskhCKyfw84UT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "notif-equipe@example.com",
+        "subject": "=\t[NOUVEAU LEAD] {{ $json[\"priorite\"] }} - {{ $json[\"Nom complet\"] }}",
+        "emailType": "text",
+        "message": "=🔔 NOUVEAU LEAD DÉTECTÉ  📋 INFORMATIONS CLIENT : - Nom : {{ $json[\"Nom complet\"] }} - Email : {{ $json[\"Adresse email\"] }} - Entreprise : {{ $json[\"Entreprise\"] \n\n \"Non spécifié\" }} - Budget : {{ $json[\"Budget estimé (en FCFA)\"] }} FCFA - Priorité : {{ $json[\"priorite\"] }} {{ $json[\"couleur_priorite\"] }}  🤖 ANALYSE IA : - Mots-clés : {{ $json.ai_keywords }}  📝 DESCRIPTION : {{ $json[\"Description du besoin\"] }}  📊 LIEN GOOGLE SHEETS : https://docs.google.com/spreadsheets/d/VOTRE_SHEET_ID/edit  --- Généré automatiquement par n8n le {{ new Date().toLocaleString('fr-FR') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [1200, -256],
+      "id": "669e1093-9794-4a4f-ac08-fd46db1ce7b3",
+      "name": "Notification équipe",
+      "webhookId": "0aa7b232-792c-43e1-8971-c75985844ad9",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "YDVMskhCKyfw84UT",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1h9bhyjxsls3a-1B34p8l8YdEOMShAymrvz6pxzuaW0I",
+          "mode": "list",
+          "cachedResultName": "Lead Management System Sheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h9bhyjxsls3a-1B34p8l8YdEOMShAymrvz6pxzuaW0I/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 1264223649,
+          "mode": "list",
+          "cachedResultName": "Réponses au formulaire 1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1h9bhyjxsls3a-1B34p8l8YdEOMShAymrvz6pxzuaW0I/edit#gid=1264223649"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Mots-clés": "={{ $json.ai_keywords }}",
+            "Statut": "\"Traité par IA\"",
+            "Date traitement": "={{ $json.ai_analysis_date }}"
+          },
+          "matchingColumns": ["Date traitement"],
+          "schema": [
+            {
+              "id": "Horodateur",
+              "displayName": "Horodateur",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nom complet",
+              "displayName": "Nom complet",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Adresse email",
+              "displayName": "Adresse email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Nom de votre entreprise",
+              "displayName": "Nom de votre entreprise",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget estimé (en FCFA)",
+              "displayName": "Budget estimé (en FCFA)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Description de votre besoin",
+              "displayName": "Description de votre besoin",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Priorité",
+              "displayName": "Priorité",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Mots-clés",
+              "displayName": "Mots-clés",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Statut",
+              "displayName": "Statut",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Email envoyé",
+              "displayName": "Email envoyé",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Date traitement",
+              "displayName": "Date traitement",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [752, -240],
+      "id": "197a2cab-283e-402f-807f-224af9926208",
+      "name": " Enregistrement résultats (Sheets)",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "NE9q0MbNvbLnA8Q6",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Détection nouveau lead": {
+      "main": [
+        [
+          {
+            "node": "Classification budget",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Classification budget": {
+      "main": [
+        [
+          {
+            "node": "Analyse IA (OpenAI)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Analyse IA (OpenAI)": {
+      "main": [
+        [
+          {
+            "node": "Extraction mots-clés",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Extraction mots-clés": {
+      "main": [
+        [
+          {
+            "node": " Enregistrement résultats (Sheets)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Email prospect": {
+      "main": [
+        [
+          {
+            "node": "Notification équipe",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    " Enregistrement résultats (Sheets)": {
+      "main": [
+        [
+          {
+            "node": "Email prospect",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "6849b7bc-c1ba-4f45-bb7f-0ec4aa4da71c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "42527afecaad8e9d4cd68af36d0f1415b281b2101aae94999643e5c9caa6fdb0"
+  },
+  "id": "BAyZs4q1UK99Yw2c",
+  "tags": []
+}
