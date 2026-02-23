@@ -28,7 +28,7 @@
 
 **Nom du fichier :** `lead_manager_workflow.json`
 
-<img src="/n8n.png" width="400" align="center">
+<img src="./n8n.png"  align="center">
 
 **Comment l'utiliser :**
 
