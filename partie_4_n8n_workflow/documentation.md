@@ -28,7 +28,7 @@
 
 **Nom du fichier :** `lead_manager_workflow.json`
 
-![Worflow n8n](./n8n.png"Aperçu du webflow n8n")
+<img src="/n8n.png" width="100%" align="center">
 
 **Comment l'utiliser :**
 
