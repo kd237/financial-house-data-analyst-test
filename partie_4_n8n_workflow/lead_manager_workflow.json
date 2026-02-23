@@ -29,10 +29,7 @@
       },
       "type": "n8n-nodes-base.googleSheetsTrigger",
       "typeVersion": 1,
-      "position": [
-        -160,
-        -240
-      ],
+      "position": [-160, -240],
       "id": "f6a690bc-d779-41f3-8d1e-508fbf28a57e",
       "name": "Détection nouveau lead",
       "credentials": {
@@ -49,10 +46,7 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        80,
-        -240
-      ],
+      "position": [80, -240],
       "id": "c8854a3e-9384-49c0-a9ad-b64aa098bada",
       "name": "Classification budget"
     },
@@ -65,7 +59,7 @@
           "parameters": [
             {
               "name": "Authorization",
-              "value": "Bearer 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"
+              "value": "Bearer API_KEY"
             }
           ]
         },
@@ -76,10 +70,7 @@
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
-      "position": [
-        336,
-        -240
-      ],
+      "position": [336, -240],
       "id": "29657337-d243-4e9e-9245-bf660f03f361",
       "name": "Analyse IA (OpenAI)"
     },
@@ -89,10 +80,7 @@
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [
-        544,
-        -240
-      ],
+      "position": [544, -240],
       "id": "4543b0d1-ed39-4de1-84d4-cdbfa4e117cf",
       "name": "Extraction mots-clés"
     },
@@ -106,10 +94,7 @@
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
-      "position": [
-        960,
-        -256
-      ],
+      "position": [960, -256],
       "id": "9bec4e9b-a3b9-48f6-916c-0522077c40d0",
       "name": "Email prospect",
       "webhookId": "1a02fc9a-011c-4e2c-b2a0-d62371f1e295",
@@ -130,10 +115,7 @@
       },
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.2,
-      "position": [
-        1200,
-        -256
-      ],
+      "position": [1200, -256],
       "id": "669e1093-9794-4a4f-ac08-fd46db1ce7b3",
       "name": "Notification équipe",
       "webhookId": "0aa7b232-792c-43e1-8971-c75985844ad9",
@@ -168,9 +150,7 @@
             "Statut": "\"Traité par IA\"",
             "Date traitement": "={{ $json.ai_analysis_date }}"
           },
-          "matchingColumns": [
-            "Date traitement"
-          ],
+          "matchingColumns": ["Date traitement"],
           "schema": [
             {
               "id": "Horodateur",
@@ -293,10 +273,7 @@
       },
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
-      "position": [
-        752,
-        -240
-      ],
+      "position": [752, -240],
       "id": "197a2cab-283e-402f-807f-224af9926208",
       "name": " Enregistrement résultats (Sheets)",
       "credentials": {
